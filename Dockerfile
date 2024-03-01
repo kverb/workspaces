@@ -72,7 +72,7 @@ RUN curl -L https://kb.w81st.com/config/helix/languages.toml -o /home/${USER_NAM
     && curl -L https://kb.w81st.com/config/fish/config.fish -o /home/${USER_NAME}/.config/fish/config.fish \
     && curl -L https://kb.w81st.com/config/gitconfig -o /home/${USER_NAME}/.gitconfig \
     
-WORKDIR /home/${USER_NAME}/workspace
+WORKDIR /workspace
 
 # Open a shell when the container starts
 USER ${USER_NAME}
