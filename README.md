@@ -13,7 +13,7 @@ To use it, cd into a working code directory, and build the docker container (USE
 docker build --ulimit "nofile=1024:1048576" --build-arg USER_NAME=<user-name> -f Dockerfile.Node -t <image-name> .
 ```
 
-specify the flavor with `-f` : `Dockerfile.Node, Dockerfile.Go` , etc. 
+specify the flavor with `-f` : `Node.Dockerfile, Go.Dockerfile` , etc. 
 
 This DOES NOT copy the current directory contents to the container. 
 Instead, mount as a volume at run time: 

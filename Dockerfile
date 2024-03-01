@@ -66,11 +66,11 @@ RUN mkdir -p /home/${USER_NAME}/.config/helix/ \
     && mkdir /home/${USER_NAME}/.config/fish/
 # maybe TODO: make these URLs configurable
 # maybe TODO: clone from dotfiles repo instead
-RUN curl -L https://kb.w81st.com/config/helix/languages.toml -o /home/${USER_NAME}/.config/helix/languages.toml \
-    && curl -L https://kb.w81st.com/config/helix/config.toml -o /home/${USER_NAME}/.config/helix/config.toml \
-    && curl -L https://kb.w81st.com/config/starship.toml -o /home/${USER_NAME}/.config/starship.toml \
-    && curl -L https://kb.w81st.com/config/fish/config.fish -o /home/${USER_NAME}/.config/fish/config.fish \
-    && curl -L https://kb.w81st.com/config/gitconfig -o /home/${USER_NAME}/.gitconfig \
+RUN curl -L https://raw.githubusercontent.com/kverb/workspaces/main/config/helix/languages.toml -o /home/${USER_NAME}/.config/helix/languages.toml \
+    && curl -L https://raw.githubusercontent.com/kverb/workspaces/main/config/helix/config.toml -o /home/${USER_NAME}/.config/helix/config.toml \
+    && curl -L https://raw.githubusercontent.com/kverb/workspaces/main/config/starship.toml -o /home/${USER_NAME}/.config/starship.toml \
+    && curl -L https://raw.githubusercontent.com/kverb/workspaces/main/config/fish/config.fish -o /home/${USER_NAME}/.config/fish/config.fish \
+    && curl -L https://raw.githubusercontent.com/kverb/workspaces/main/config/gitconfig -o /home/${USER_NAME}/.gitconfig \
     
 WORKDIR /workspace
 
