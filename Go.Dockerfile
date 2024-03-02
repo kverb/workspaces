@@ -7,27 +7,27 @@ FROM archlinux:latest
 # docker run -it -v $(pwd):/usr/src/app <image-name>
 ARG USER_NAME=jim
 RUN echo "User Name is: ${USER_NAME}"
+# Create a non-root user to use yay
+RUN useradd -m "${USER_NAME}" \
+    # Allow '${USER_NAME}' to run sudo without password prompt
+    && echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-ARG EXTRA_PKGS
+# set up some of our custom config
+COPY --chown=${USER_NAME}:${USER_NAME} config /home/${USER_NAME}/.config
+COPY --chown=${USER_NAME}:${USER_NAME} config/gitconfig /home/${USER_NAME}/.gitconfig
 
 # Update system and install base-devel and git for AUR packages, and other dependencies
 # XXX: maybe use a node version manager instead
 RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm \
-        base-devel \
-        git \
-        git-delta \
-        fish \
-        go \
-        less \
-        tig \
-        tmux \
-        vim
-
-# Create a non-root user to use yay
-RUN useradd -m "${USER_NAME}" \
-    # Allow '${USER_NAME}' to run sudo without password prompt
-    && echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+    base-devel \
+    git \
+    git-delta \
+    fish \
+    less \
+    tig \
+    tmux \
+    vim
 
 # Switch to the non-root user (yay requires non-root)
 USER ${USER_NAME}
@@ -40,28 +40,34 @@ RUN git clone https://aur.archlinux.org/yay.git \
     && cd .. \
     && rm -rf yay
 
-# add more AUR pkgs here if needed
+# add more AUR pkgs here at build time if needed
+# docker build --build-arg EXTRA_PKGS='pkg1 pkg2 pkg3'
+ARG EXTRA_PKGS
 RUN yay -S --noconfirm helix \
     jq \
     starship \
     zoxide \
     eza \
-    ranger
+    ranger \
+    ${EXTRA_PKGS}
 
-# set up some of our custom config
-RUN mkdir -p /home/${USER_NAME}/.config/helix/ \
-    && mkdir /home/${USER_NAME}/.config/fish/
-# maybe TODO: make these URLs configurable
-# maybe TODO: clone from dotfiles repo instead
-RUN curl -L https://kb.w81st.com/config/helix/languages.toml -o /home/${USER_NAME}/.config/helix/languages.toml \
-    && curl -L https://kb.w81st.com/config/helix/config.toml -o /home/${USER_NAME}/.config/helix/config.toml \
-    && curl -L https://kb.w81st.com/config/starship.toml -o /home/${USER_NAME}/.config/starship.toml \
-    && curl -L https://kb.w81st.com/config/fish/config.fish -o /home/${USER_NAME}/.config/fish/config.fish \
-    && curl -L https://kb.w81st.com/config/gitconfig -o /home/${USER_NAME}/.gitconfig
-    
 WORKDIR /workspace
 
+# Include stub sections
+# Note: stubs should assume non-root user is being used
+# ---------------------
+# dockerfile stub for Go dev
+
+RUN yay -S --noconfirm \
+	delve \
+	go \
+	gopls
+	
+
+# ---------------------
+
 # Open a shell when the container starts
-USER ${USER_NAME}
 CMD ["/bin/fish"]
+
+
 

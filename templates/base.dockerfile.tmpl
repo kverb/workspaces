@@ -56,20 +56,9 @@ WORKDIR /workspace
 # Include stub sections
 # Note: stubs should assume non-root user is being used
 # ---------------------
-# dockerfile stub template for Node-related packages. 
-
-# on arch, we want to use pacman, not npm for globally installed npm packages
-RUN yay -S --noconfirm \
-    emmet-language-server  \
-    eslint \
-    eslint-language-server \
-    prettier \
-    tailwindcss-language-server \
-    typescript \
-    typescript-language-server \
-    vscode-css-languageserver  \
-    vscode-html-languageserver \
-
+{{- range .Sections }}
+{{ . }}
+{{- end }}
 # ---------------------
 
 # Open a shell when the container starts
