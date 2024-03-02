@@ -13,7 +13,7 @@ The editing workflow is based on the [Helix Editor](https://helix-editor.com/).
 
 It should be ready-to-go for editing Go and JS/TS projects. 
 
-To use it, you will need docker installed and running (dockerd), clone this repo and build a docker container (USER_NAME is optional):
+To use it, you will need docker installed and running (dockerd), clone this repo and build a docker image (USER_NAME is optional):
 
 ```
 docker build --ulimit "nofile=1024:1048576" --build-arg USER_NAME=<user-name> -t <image-name> .
@@ -43,10 +43,11 @@ You can specify an alternative base template by passing `-base path/to/base.tmpl
 ## Using the containers
 
 This DOES NOT copy the current directory contents to the container, nor does it clone a working repo.
-Instead, cd into your code directory and mount it as a volume at run time to use the container for editing:
+Instead, cd into your code directory and mount it as a volume to /workspace at run time to use the container for editing:
 
 ```
-docker run -it -v $(pwd):/workspace <image-name>
+docker run -it --name <container-name> -v $PWD:/workspace -d <image-name> 
+docker attach <container-name>
 ```
 
 This will drop you into a fish shell pre-configured with the tools and flavor-specific settings or packages.
@@ -54,7 +55,7 @@ This will drop you into a fish shell pre-configured with the tools and flavor-sp
 To expose ports from the container, e.g. for `npm run dev` :
 
 ```
-docker run -it -v $(pwd):/workspace -p 3000:3000 <image-name>
+docker run -it --name {container-name} -v $PWD:/workspace -p 3000:3000 -d {image-name} 
 ```
 
 Sample of the workspace prompt and helix editor:
