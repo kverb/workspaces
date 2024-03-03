@@ -9,8 +9,8 @@ on:
   push:
     branches: [ "main" ]
     paths: 
-    - 'Dockerfile'
-    - 'config'
+    - 'Dockerfiles/**'
+    - 'config/**'
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
