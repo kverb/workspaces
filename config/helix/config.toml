@@ -1,5 +1,5 @@
 # type :theme <tab> to browse and preview themes
-theme = "gruvbox"
+theme = "encom-amber"
 
 [keys.insert]
 "A-x" = "normal_mode" # Maps Alt-X to enter normal mode
