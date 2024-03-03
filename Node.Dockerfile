@@ -68,7 +68,7 @@ RUN yay -S --noconfirm \
     typescript \
     typescript-language-server \
     vscode-css-languageserver  \
-    vscode-html-languageserver \
+    vscode-html-languageserver
 
 # ---------------------
 
