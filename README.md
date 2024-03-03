@@ -60,7 +60,8 @@ docker run -it --name {container-name} -v $PWD:/workspace -p 3000:3000 -d {image
 
 Sample of the workspace prompt and helix editor:
 
-https://github.com/kverb/workspaces/assets/1261697/9eb90305-c170-4c6f-9667-51a29bf0b76e
+[![asciicast](https://asciinema.org/a/644983.svg)](https://asciinema.org/a/644983)
+
 
 
 
