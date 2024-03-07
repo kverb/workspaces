@@ -4,7 +4,9 @@ FROM archlinux:latest
 # this should be built and ran from an already cloned local copy of a repo
 # see https://github.com/moby/moby/issues/38814 for ulimit issue
 # docker build --ulimit "nofile=1024:1048576"  --build-arg USER_NAME=<user-name> -t <image-name> .
-# docker run -it -v $(pwd):/usr/src/app <image-name>
+# docker run -it -v $(pwd):/usr/src/app -d <image-name> --name <container-name>
+# docker attach <container-name>
+
 ARG USER_NAME=jim
 RUN echo "User Name is: ${USER_NAME}"
 # Create a non-root user to use yay
@@ -22,10 +24,11 @@ RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm \
     base-devel \
     git \
-    git-delta \
-    fish \
-    less \
-    tig \
+    git-delta \  # pager for `git diff`
+    fish \       # shell
+    less \       # interestingly not pre-installed
+    pacseek \    # tui for searching AUR/pacman repos
+    tig \        # tui for git log
     tmux \
     vim
 
@@ -43,13 +46,15 @@ RUN git clone https://aur.archlinux.org/yay.git \
 # add more AUR pkgs here at build time if needed
 # docker build --build-arg EXTRA_PKGS='pkg1 pkg2 pkg3'
 ARG EXTRA_PKGS
-RUN yay -S --noconfirm helix \
-    jq \
-    starship \
-    zoxide \
-    eza \
-    ranger \
-    ${EXTRA_PKGS}
+RUN yay -S --noconfirm \
+    helix           \ # editor
+    jq              \ # pager for json
+    starship        \ # prompt manager
+    bat             \ # better `cat`
+    zoxide          \ # better `cd`
+    eza             \ # better `ls`
+    ranger          \ # tui for file browsing
+    ${EXTRA_PKGS}     # whatever other packages you want at build time
 
 WORKDIR /workspace
 
