@@ -1,0 +1,55 @@
+# docker-compose up -d [--build]
+version: '3.8'
+services:
+  # the interactive workspace for editing
+  workspaces-bun:
+    build:
+      context: .
+      dockerfile: Dockerfiles/Node.Dockerfile
+      args:
+        USER_NAME: "bunny"
+        EXTRA_PKGS: ""
+    env_file:
+      - .env
+    environment:
+      - GPG_TTY=${TTY}
+      - GPG_AGENT_INFO=${GPG_AGENT_INFO}
+    image: bun
+    container_name: bun1
+    volumes:
+      # XXX: be mindful of where you create this container from
+      - .:/workspace
+    ports:
+      - "5173:5173"
+      # default hono
+      - "8787:8787"
+      # for cloudflare worker dev
+      - "8788:8788"
+      # for cloudflare oauth callback
+      - "8976:8976"
+    # equivalent of docker run -it
+    stdin_open: true
+    tty: true
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 1048576
+
+  bun-dev:
+    image: oven/bun
+    container_name: rundev
+    volumes:
+      - .:/workspace
+    ports:
+      - "5173:5173"
+      # default hono
+      - "8787:8787"
+      # for cloudflare worker dev
+      - "8788:8788"
+      # for cloudflare oauth callback
+      - "8976:8976"
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 1048576
+    command: bun run dev

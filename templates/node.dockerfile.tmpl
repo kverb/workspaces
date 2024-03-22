@@ -2,6 +2,7 @@
 
 # on arch, we want to use pacman, not npm for globally installed npm packages
 RUN yay -S --noconfirm \
+    nvm \
     emmet-language-server  \
     eslint \
     eslint-language-server \
@@ -10,4 +11,7 @@ RUN yay -S --noconfirm \
     typescript \
     typescript-language-server \
     vscode-css-languageserver  \
-    vscode-html-languageserver
+    vscode-html-languageserver \
+    pnpm \
+    yarn \
+    bun-bin
