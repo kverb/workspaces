@@ -18,7 +18,11 @@ COPY --chown=${USER_NAME}:${USER_NAME} config /home/${USER_NAME}/.config
 COPY --chown=${USER_NAME}:${USER_NAME} config/gitconfig /home/${USER_NAME}/.gitconfig
 
 # Update system and install base-devel and git for AUR packages, and other dependencies
-# XXX: maybe use a node version manager instead
+# Run reflector to optimize the mirror list
+RUN pacman -Syu --noconfirm \
+    && pacman -S --noconfirm reflector \
+    && reflector --verbose --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+
 RUN pacman -Syu --noconfirm \
     && pacman -S --noconfirm \
     base-devel \
@@ -61,15 +65,8 @@ WORKDIR /workspace
 # ---------------------
 # ---------------------
 
-# Configure GPG agent
-ENV GPG_TTY=$(tty)
-ENV GPG_AGENT_INFO=/gnupg/S.gpg-agent
-
-# Set up Fish shell as the default shell
-ENV SHELL /usr/bin/fish
-
 # Open a shell when the container starts
-CMD ["/bin/fish"]
+# CMD ["/usr/bin/fish"]
 
 
 
