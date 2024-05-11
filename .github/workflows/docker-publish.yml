@@ -73,7 +73,6 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.tags }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest 
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:${{ github.sha }}  # Tag with commit SHA for reference
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}  # This is the "latest" tag 
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
