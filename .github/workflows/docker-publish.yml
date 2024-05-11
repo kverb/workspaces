@@ -41,6 +41,8 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2  
@@ -76,7 +78,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
 
       - name: Sign the published Docker image
         if: github.event_name != 'pull_request'
