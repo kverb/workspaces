@@ -73,7 +73,8 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.tags }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest 
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}  # This is the "latest" tag 
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
