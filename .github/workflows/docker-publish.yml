@@ -86,3 +86,10 @@ jobs:
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest
+
+      - name: Delete old package versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'kverb/workspaces'
+          num-old-versions-to-delete: 100  # Delete all but the latest 5 (adjust if you have more versions)
+          min-versions-to-keep: 5
