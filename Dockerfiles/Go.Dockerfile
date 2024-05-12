@@ -17,6 +17,10 @@ RUN useradd -m "${USER_NAME}" \
 COPY --chown=${USER_NAME}:${USER_NAME} config /home/${USER_NAME}/.config
 COPY --chown=${USER_NAME}:${USER_NAME} config/gitconfig /home/${USER_NAME}/.gitconfig
 
+# idk why but the latest makepkg default conf is really slow.
+# this conf disables debug packages and compression
+COPY --chown=root:root config/makepkg.conf /etc/makepkg.conf
+
 # Update system and install base-devel and git for AUR packages, and other dependencies
 # Run reflector to optimize the mirror list
 RUN pacman -Syu --noconfirm \
