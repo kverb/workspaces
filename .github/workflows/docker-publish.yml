@@ -62,8 +62,13 @@ jobs:
       - name: Set Image Name
         run: |
           short_name=$(echo ${{ matrix.dockerfile }} | sed 's/Dockerfiles\///' | sed 's/.Dockerfile//' | tr '[:upper:]' '[:lower:]')
-          echo "IMAGE_NAME_WITH_VARIANT=${{ env.IMAGE_NAME }}-$short_name" >> $GITHUB_ENV  
-
+          # Conditional image name based on Dockerfile
+          if [[ $short_name == "go" || $short_name == "node" ]]; then
+            echo "IMAGE_NAME_WITH_VARIANT=${{ env.IMAGE_NAME }}-$short_name" >> $GITHUB_ENV
+          else
+            echo "IMAGE_NAME_WITH_VARIANT=${{ env.IMAGE_NAME }}" >> $GITHUB_ENV
+          fi
+          
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
