@@ -70,11 +70,7 @@ jobs:
           context: .
           file: ${{ matrix.dockerfile }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest 
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:${{ github.sha }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -87,9 +83,21 @@ jobs:
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest
 
-      - name: Delete old package versions
+      - name: Delete old package versions for base
         uses: actions/delete-package-versions@v5
         with:
           package-name: 'kverb/workspaces'
-          num-old-versions-to-delete: 100  # Delete all but the latest 5 (adjust if you have more versions)
+          num-old-versions-to-delete: 100
+          min-versions-to-keep: 5
+      - name: Delete old package versions for go
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'kverb/workspaces-go'
+          num-old-versions-to-delete: 100
+          min-versions-to-keep: 5
+      - name: Delete old package versions for node
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'kverb/workspaces-node'
+          num-old-versions-to-delete: 100
           min-versions-to-keep: 5
