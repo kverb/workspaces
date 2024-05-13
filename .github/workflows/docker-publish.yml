@@ -87,17 +87,14 @@ jobs:
         uses: actions/delete-package-versions@v5
         with:
           package-name: 'kverb/workspaces'
-          num-old-versions-to-delete: 100
           min-versions-to-keep: 5
       - name: Delete old package versions for go
         uses: actions/delete-package-versions@v5
         with:
           package-name: 'kverb/workspaces-go'
-          num-old-versions-to-delete: 100
           min-versions-to-keep: 5
       - name: Delete old package versions for node
         uses: actions/delete-package-versions@v5
         with:
           package-name: 'kverb/workspaces-node'
-          num-old-versions-to-delete: 100
           min-versions-to-keep: 5
