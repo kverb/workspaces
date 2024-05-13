@@ -88,5 +88,8 @@ jobs:
         with:
           user: kverb
           type: container
-          names: workspaces
+          names: |
+            workspaces
+            workspaces-go
+            workspaces-node
           keep: 5
