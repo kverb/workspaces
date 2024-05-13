@@ -87,5 +87,5 @@ jobs:
         uses: smartsquaregmbh/delete-old-packages@v0.7.0
         with:
           type: container
-          names: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}
+          names: ${{ env.IMAGE_NAME }}
           keep: 5
