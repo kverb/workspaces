@@ -84,17 +84,8 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}:latest
 
       - name: Delete old package versions for base
-        uses: actions/delete-package-versions@v5
+        uses: smartsquaregmbh/delete-old-packages@v0.7.0
         with:
-          package-name: 'kverb/workspaces'
-          min-versions-to-keep: 5
-      - name: Delete old package versions for go
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: 'kverb/workspaces-go'
-          min-versions-to-keep: 5
-      - name: Delete old package versions for node
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: 'kverb/workspaces-node'
-          min-versions-to-keep: 5
+          type: container
+          names: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WITH_VARIANT }}
+          keep: 5
