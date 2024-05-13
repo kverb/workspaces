@@ -86,6 +86,7 @@ jobs:
       - name: Delete old package versions for base
         uses: smartsquaregmbh/delete-old-packages@v0.7.0
         with:
+          organizatino: kverb
           type: container
-          names: ${{ env.IMAGE_NAME }}
+          names: workspaces
           keep: 5
