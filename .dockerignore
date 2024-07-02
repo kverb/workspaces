@@ -1,0 +1,13 @@
+# Ignore everything in the dotfiles directory
+dotfiles/*
+
+# Then un-ignore (include) only the specific files and directories we want
+!dotfiles/.config/fish/
+!dotfiles/.config/helix/
+!dotfiles/.config/ranger/
+!dotfiles/.config/tig/
+!dotfiles/.config/tmux/
+!dotfiles/.config/starship.toml
+!dotfiles/.config/gitconfig
+!dotfiles/.vim/
+!dotfiles/.vimrc

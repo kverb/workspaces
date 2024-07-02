@@ -14,8 +14,10 @@ RUN useradd -m "${USER_NAME}" \
     && echo "${USER_NAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # set up some of our custom config
-COPY --chown=${USER_NAME}:${USER_NAME} config /home/${USER_NAME}/.config
-COPY --chown=${USER_NAME}:${USER_NAME} config/gitconfig /home/${USER_NAME}/.gitconfig
+# Since we don't want/need all of the files from dotfiles, we need to 
+# un-ignore specific files or dirs in the .dockerignore file
+COPY --chown=${USER_NAME}:${USER_NAME} dotfiles /home/${USER_NAME}
+COPY --chown=${USER_NAME}:${USER_NAME} dotfiles/.config/gitconfig /home/${USER_NAME}/gitconfig
 
 # idk why but the latest makepkg default conf is really slow.
 # this conf disables debug packages and compression
