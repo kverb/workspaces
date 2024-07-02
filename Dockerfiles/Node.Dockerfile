@@ -17,7 +17,9 @@ RUN useradd -m "${USER_NAME}" \
 # Since we don't want/need all of the files from dotfiles, we need to 
 # un-ignore specific files or dirs in the .dockerignore file
 COPY --chown=${USER_NAME}:${USER_NAME} dotfiles /home/${USER_NAME}
-COPY --chown=${USER_NAME}:${USER_NAME} dotfiles/.config/gitconfig /home/${USER_NAME}/gitconfig
+COPY --chown=${USER_NAME}:${USER_NAME} dotfiles/.config/gitconfig /home/${USER_NAME}/.gitconfig
+# i prefer a different prompt to better differentiate when we're in docker
+COPY --chown=${USER_NAME}:${USER_NAME} config/starship.toml /home/${USER_NAME}/.config/starship.toml
 
 # idk why but the latest makepkg default conf is really slow.
 # this conf disables debug packages and compression
