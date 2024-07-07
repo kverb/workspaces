@@ -40,7 +40,8 @@ RUN pacman -Syu --noconfirm \
     less \
     tig \
     tmux \
-    vim
+    vim \
+    xh
 
 # Switch to the non-root user (yay requires non-root)
 USER ${USER_NAME}
