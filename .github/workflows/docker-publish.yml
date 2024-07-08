@@ -26,10 +26,12 @@ jobs:
       id-token: write
     strategy:
       matrix:
+        max-parallel: 1
         dockerfile: 
           - Dockerfiles/Dockerfile     
           - Dockerfiles/Node.Dockerfile  
           - Dockerfiles/Go.Dockerfile    
+          - Dockerfiles/Bun.Dockerfile
 
     steps:
       - name: Checkout repository
@@ -101,4 +103,5 @@ jobs:
             workspaces
             workspaces-go
             workspaces-node
+            workspaces-bun
           keep: 5
