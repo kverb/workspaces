@@ -96,6 +96,7 @@ jobs:
 
       - name: Delete old package versions for base
         uses: smartsquaregmbh/delete-old-packages@v0.7.0
+        continue-on-error: true
         with:
           user: kverb
           type: container
