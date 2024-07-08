@@ -69,7 +69,7 @@ jobs:
         run: |
           short_name=$(echo ${{ matrix.dockerfile }} | sed 's/Dockerfiles\///' | sed 's/.Dockerfile//' | tr '[:upper:]' '[:lower:]')
           # Conditional image name based on Dockerfile
-          if [[ $short_name == "go" || $short_name == "node" ]]; then
+          if [[ $short_name == "go" || $short_name == "node" || $short_name == "bun" ]]; then
             echo "IMAGE_NAME_WITH_VARIANT=${{ env.IMAGE_NAME }}-$short_name" >> $GITHUB_ENV
           else
             echo "IMAGE_NAME_WITH_VARIANT=${{ env.IMAGE_NAME }}" >> $GITHUB_ENV
