@@ -25,8 +25,8 @@ jobs:
       packages: write
       id-token: write
     strategy:
+      max-parallel: 1
       matrix:
-        max-parallel: 1
         dockerfile: 
           - Dockerfiles/Dockerfile     
           - Dockerfiles/Node.Dockerfile  
