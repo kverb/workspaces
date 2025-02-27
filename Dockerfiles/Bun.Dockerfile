@@ -76,7 +76,6 @@ WORKDIR /workspace
 
 # on arch, we want to use pacman, not npm for globally installed npm packages
 RUN yay -S --noconfirm \
-    emmet-language-server  \
     eslint \
     eslint-language-server \
     prettier \

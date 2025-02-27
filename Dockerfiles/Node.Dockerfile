@@ -40,7 +40,8 @@ RUN pacman -Syu --noconfirm \
     less \
     tig \
     tmux \
-    vim
+    vim \
+    xh
 
 # Switch to the non-root user (yay requires non-root)
 USER ${USER_NAME}
@@ -75,8 +76,6 @@ WORKDIR /workspace
 
 # on arch, we want to use pacman, not npm for globally installed npm packages
 RUN yay -S --noconfirm \
-    nvm \
-    emmet-language-server  \
     eslint \
     eslint-language-server \
     prettier \
@@ -86,8 +85,7 @@ RUN yay -S --noconfirm \
     vscode-css-languageserver  \
     vscode-html-languageserver \
     pnpm \
-    yarn \
-    bun-bin
+    yarn
 
 # ---------------------
 
