@@ -1,0 +1,8 @@
+# dockerfile stub template for Node-related packages. 
+
+# on arch, we want to use pacman, not npm for globally installed npm packages
+RUN yay -S --noconfirm \
+    mypy               \
+    python-poetry      \
+    python-pytest      \
+    ruff               \
