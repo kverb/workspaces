@@ -32,6 +32,7 @@ jobs:
           - Dockerfiles/Node.Dockerfile  
           - Dockerfiles/Go.Dockerfile    
           - Dockerfiles/Bun.Dockerfile
+          - Dockerfiles/Python.Dockerfile
 
     steps:
       - name: Checkout repository
@@ -105,4 +106,5 @@ jobs:
             workspaces-go
             workspaces-node
             workspaces-bun
+            workspaces-python
           keep: 5
